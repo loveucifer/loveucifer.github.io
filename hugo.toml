@@ -1,0 +1,16 @@
+baseURL = "https://loveucifer.github.io/"
+languageCode = "en-us"
+title = "loveucifer"
+
+[params]
+  description = "a minimal blog"
+  author = "loveucifer"
+  giscusRepo = "loveucifer/loveucifer.github.io"
+  giscusRepoId = "R_kgDOSZzNvA"
+  giscusCategory = "General"
+  giscusCategoryId = "DIC_kwDOSZzNvM4C8vw_"
+  githubUsername = "loveucifer"
+
+[markup]
+  [markup.highlight]
+    style = "monokai"

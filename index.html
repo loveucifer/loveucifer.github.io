@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>loveucifer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libertinus+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000}
+body{display:flex;align-items:center;justify-content:center;font-family:'Libertinus Serif',serif}
+video{display:block;max-width:100%;max-height:100vh;width:auto;height:auto}
+.links{position:fixed;right:32px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:24px;z-index:10;text-align:right}
+.links a{color:#bbb;text-decoration:none;font-size:18px;letter-spacing:.5px;transition:color .2s;font-weight:600}
+.links a:hover{color:#fff}
+@media(max-width:768px){
+.links{right:auto;left:50%;top:auto;bottom:24px;transform:translateX(-50%);flex-direction:row;gap:24px;text-align:center}
+.links a{font-size:14px}
+}
+</style>
+</head>
+<body>
+<video src="ascii-magic-1.mp4" autoplay loop muted playsinline preload="metadata"></video>
+<div class="links">
+<a href="/posts/">blogs</a>
+<a href="https://loveucifer.bearblog.dev/blog/" target="_blank" rel="noopener">yap</a>
+<a href="https://github.com/loveucifer" target="_blank" rel="noopener">github</a>
+</div>
+</body>
+</html>

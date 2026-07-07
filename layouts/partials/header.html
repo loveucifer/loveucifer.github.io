@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .Title }}{{ .Title }} | {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | plainify }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg: #000000;
+      --text: #ffffff;
+      --dim: #888888;
+      --border: #333333;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.7;
+      font-size: 15px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+
+    body.theme-white {
+      --bg: #ffffff;
+      --text: #000000;
+      --dim: #666666;
+      --border: #cccccc;
+    }
+
+    body.theme-temple {
+      --bg: #00AAAA;
+      --text: #FFFF55;
+      --dim: #88FFFF;
+      --border: #FFFF55;
+    }
+
+    body.theme-temple a { color: #FFFF55; }
+    body.theme-temple header h1 a,
+    body.theme-temple .article-list h2 a,
+    body.theme-temple .post-content h1 { color: #FFFF55; }
+    body.theme-temple .theme-switch a {
+      border: 2px solid #FFFF55;
+      color: #FFFF55;
+      background: transparent;
+    }
+    body.theme-temple .theme-switch a:hover,
+    body.theme-temple .theme-switch a.active {
+      background: #FFFF55;
+      color: #00AAAA;
+    }
+    body.theme-temple footer { border-color: #FFFF55; color: #88FFFF; }
+    body.theme-temple .meta { color: #88FFFF; }
+    body.theme-temple .back-link { color: #88FFFF; }
+    body.theme-temple .giscus-wrapper { border-color: #FFFF55; }
+
+    .top-bar {
+      position: fixed;
+      top: 1rem;
+      left: 2rem;
+      z-index: 100;
+    }
+
+    .theme-switch { display: flex; gap: 0.3rem; align-items: center; }
+    .theme-label { font-size: 0.7rem; color: var(--dim); margin-right: 0.3rem; }
+    .theme-switch a {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--dim);
+      text-decoration: none;
+      font-size: 0.75rem;
+      background: transparent;
+    }
+    .theme-switch a:hover,
+    .theme-switch a.active {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    .main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+    header h1 a { color: var(--text); text-decoration: none; }
+    nav { margin-top: 1rem; }
+    nav a { color: var(--dim); text-decoration: none; margin: 0 0.75rem; font-size: 0.85rem; }
+    nav a:hover,
+    nav a.active { color: var(--text); }
+
+    main { margin-bottom: 3rem; }
+
+    .page-title { margin-bottom: 2rem; }
+    .page-title h1 { margin: 0; font-size: 1.2rem; }
+    .page-title p { margin: 0.5rem 0 0; color: var(--dim); font-size: 0.85rem; }
+
+    .article-list { list-style: none; padding: 0; margin: 0; }
+    .article-list li {
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeInUp 0.35s ease forwards;
+    }
+    .article-list li:nth-child(1) { animation-delay: 0.05s; }
+    .article-list li:nth-child(2) { animation-delay: 0.1s; }
+    .article-list li:nth-child(3) { animation-delay: 0.15s; }
+    .article-list li:nth-child(4) { animation-delay: 0.2s; }
+    .article-list li:nth-child(5) { animation-delay: 0.25s; }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .article-list h2 { font-size: 1.05rem; font-weight: 700; margin: 0; }
+    .article-list h2 a { color: var(--text); text-decoration: none; }
+    .article-list h2 a:hover { text-decoration: underline; }
+
+    .meta { color: var(--dim); font-size: 0.75rem; margin-bottom: 0.75rem; }
+    .back-link { color: var(--dim); text-decoration: none; font-size: 0.85rem; }
+    .back-link:hover { color: var(--text); }
+
+    .post-content { margin-bottom: 3rem; }
+    .post-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-content h1 { font-size: 1.6rem; margin: 0 0 0.5rem; line-height: 1.2; }
+    .post-content h2 { font-size: 1.2rem; margin-top: 1.8rem; margin-bottom: 0.8rem; }
+    .post-content h3 { font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .post-content p { margin-bottom: 1rem; }
+    .post-content ul, .post-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.4rem; }
+    .post-content img { max-width: 100%; height: auto; margin: 1rem 0; border: 1px solid var(--border); }
+    .post-content code { background: var(--border); padding: 0.15rem 0.4rem; font-size: 0.9em; }
+    .post-content pre { background: var(--border); padding: 1rem; overflow-x: auto; margin-bottom: 1rem; }
+    .post-content pre code { background: none; padding: 0; }
+    .post-content blockquote { border-left: 2px solid var(--border); padding-left: 1rem; color: var(--dim); margin-bottom: 1rem; }
+    .post-content table { border-collapse: collapse; width: 100%; margin-bottom: 1rem; }
+    .post-content th, .post-content td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; }
+
+    .post-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .post-nav a { color: var(--dim); text-decoration: none; }
+    .post-nav a:hover { color: var(--text); }
+    .post-nav a span { display: block; font-size: 0.75rem; margin-bottom: 0.2rem; }
+    .post-nav a strong { display: block; line-height: 1.4; }
+
+    .giscus-wrapper { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    footer { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--dim); font-size: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .main { padding: 6rem 1.5rem 2rem; }
+      .top-bar { top: 0.5rem; left: 1rem; right: 1rem; }
+      .theme-switch { flex-wrap: wrap; }
+      .post-nav { display: block; }
+      .post-nav a { display: block; margin-bottom: 1rem; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      startup: { ready: () => MathJax.startup.defaultReady() }
+    };
+    (function() {
+      var theme = localStorage.getItem('theme') || 'theme-bw';
+      document.documentElement.dataset.theme = theme;
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.className = theme;
+        document.querySelectorAll('.theme-switch a').forEach(function(a) {
+          a.classList.toggle('active', a.dataset.theme === theme);
+        });
+        if (window.MathJax) MathJax.startup.promise.then(() => MathJax.typesetPromise());
+      });
+    })();
+    function setTheme(theme) {
+      document.body.className = theme;
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('theme', theme);
+      document.querySelectorAll('.theme-switch a').forEach(function(a) {
+        a.classList.toggle('active', a.dataset.theme === theme);
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="theme-switch">
+      <a href="#" data-theme="theme-bw" onclick="setTheme('theme-bw'); return false;">BW</a>
+      <a href="#" data-theme="theme-temple" onclick="setTheme('theme-temple'); return false;">Temple</a>
+      <a href="#" data-theme="theme-white" onclick="setTheme('theme-white'); return false;">White</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1><a href="/">{{ .Site.Title }}</a></h1>
+      <nav>
+        <a href="/posts/"{{ if or (eq .Section "posts") (eq .RelPermalink "/posts/") }} class="active"{{ end }}>posts</a>
+        <a href="https://github.com/{{ .Site.Params.githubUsername }}" target="_blank">github</a>
+        <a href="https://x.com/loveucifer" target="_blank">x</a>
+      </nav>
+    </header>
