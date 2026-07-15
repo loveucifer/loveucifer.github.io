@@ -119,7 +119,7 @@ $$
 Switch themes using the buttons in the top-left corner:
 
 - **BW** - Black & white (default)
-- **Temple** - Temple OS style (light blue)
+- **Temple** - Temple OS style (blue bg, yellow text)
 - **White** - Light mode
 
 Theme preference is saved to localStorage.

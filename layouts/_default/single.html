@@ -10,28 +10,33 @@
       <div class="meta">
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
       </div>
+      {{ with .Description }}
+      <p class="post-description">{{ . }}</p>
+      {{ end }}
     </div>
 
     {{ .Content }}
 
-    <a href="/posts/" class="back-link">← back to archive</a>
+    <div class="post-footer">
+      <a href="/posts/" class="back-link">← back to archive</a>
 
-    {{ if or $prev $next }}
-    <nav class="post-nav" aria-label="Post navigation">
-      {{ with $prev }}
-      <a href="{{ .RelPermalink }}">
-        <span>Previous Post</span>
-        <strong>{{ .Title }}</strong>
-      </a>
+      {{ if or $prev $next }}
+      <nav class="post-nav" aria-label="Post navigation">
+        {{ with $prev }}
+        <a href="{{ .RelPermalink }}" class="post-prev">
+          <span>Previous</span>
+          <strong>{{ .Title }}</strong>
+        </a>
+        {{ end }}
+        {{ with $next }}
+        <a href="{{ .RelPermalink }}" class="post-next">
+          <span>Next</span>
+          <strong>{{ .Title }}</strong>
+        </a>
+        {{ end }}
+      </nav>
       {{ end }}
-      {{ with $next }}
-      <a href="{{ .RelPermalink }}">
-        <span>Next Post</span>
-        <strong>{{ .Title }}</strong>
-      </a>
-      {{ end }}
-    </nav>
-    {{ end }}
+    </div>
   </article>
 
   {{ if and .Site.Params.giscusRepoId (ne .Site.Params.giscusRepoId "REPLACE_WITH_YOUR_REPO_ID") }}

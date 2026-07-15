@@ -36,30 +36,30 @@
     }
 
     body.theme-temple {
-      --bg: #00AAAA;
-      --text: #FFFF55;
-      --dim: #88FFFF;
-      --border: #FFFF55;
+      --bg: #0000AA;
+      --text: #FFFF00;
+      --dim: #8888FF;
+      --border: #FFFF00;
     }
 
-    body.theme-temple a { color: #FFFF55; }
+    body.theme-temple a { color: #FFFF00; }
     body.theme-temple header h1 a,
     body.theme-temple .article-list h2 a,
-    body.theme-temple .post-content h1 { color: #FFFF55; }
+    body.theme-temple .post-content h1 { color: #FFFF00; }
     body.theme-temple .theme-switch a {
-      border: 2px solid #FFFF55;
-      color: #FFFF55;
+      border: 2px solid #FFFF00;
+      color: #FFFF00;
       background: transparent;
     }
     body.theme-temple .theme-switch a:hover,
     body.theme-temple .theme-switch a.active {
-      background: #FFFF55;
-      color: #00AAAA;
+      background: #FFFF00;
+      color: #0000AA;
     }
-    body.theme-temple footer { border-color: #FFFF55; color: #88FFFF; }
-    body.theme-temple .meta { color: #88FFFF; }
-    body.theme-temple .back-link { color: #88FFFF; }
-    body.theme-temple .giscus-wrapper { border-color: #FFFF55; }
+    body.theme-temple footer { border-color: #FFFF00; color: #8888FF; }
+    body.theme-temple .meta { color: #8888FF; }
+    body.theme-temple .back-link { color: #8888FF; }
+    body.theme-temple .giscus-wrapper { border-color: #FFFF00; }
 
     .top-bar {
       position: fixed;
@@ -113,7 +113,7 @@
 
     .article-list { list-style: none; padding: 0; margin: 0; }
     .article-list li {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       opacity: 0;
       transform: translateY(14px);
       animation: fadeInUp 0.35s ease forwards;
@@ -128,47 +128,67 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .article-list article { display: flex; flex-direction: column; gap: 0.2rem; }
+    .article-list time {
+      font-size: 0.7rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
     .article-list h2 { font-size: 1.05rem; font-weight: 700; margin: 0; }
     .article-list h2 a { color: var(--text); text-decoration: none; }
     .article-list h2 a:hover { text-decoration: underline; }
+    .article-list .excerpt {
+      font-size: 0.82rem;
+      color: var(--dim);
+      margin: 0.15rem 0 0;
+      line-height: 1.5;
+    }
 
-    .meta { color: var(--dim); font-size: 0.75rem; margin-bottom: 0.75rem; }
+    .meta { color: var(--dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
     .back-link { color: var(--dim); text-decoration: none; font-size: 0.85rem; }
     .back-link:hover { color: var(--text); }
 
-    .post-content { margin-bottom: 3rem; }
+    .post-content { margin-bottom: 3rem; max-width: 700px; }
     .post-header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
       border-bottom: 1px solid var(--border);
     }
-    .post-content h1 { font-size: 1.6rem; margin: 0 0 0.5rem; line-height: 1.2; }
-    .post-content h2 { font-size: 1.2rem; margin-top: 1.8rem; margin-bottom: 0.8rem; }
-    .post-content h3 { font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-    .post-content p { margin-bottom: 1rem; }
-    .post-content ul, .post-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+    .post-header h1 { font-size: 1.6rem; margin: 0 0 0.75rem; line-height: 1.25; }
+    .post-description { font-size: 0.9rem; color: var(--dim); margin: 0; line-height: 1.5; }
+    .post-footer { margin-top: 2.5rem; }
+    .post-content h2 { font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .post-content h3 { font-size: 1rem; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+    .post-content p { margin-bottom: 1.15rem; line-height: 1.75; }
+    .post-content ul, .post-content ol { margin-bottom: 1.15rem; padding-left: 1.5rem; }
     .post-content li { margin-bottom: 0.4rem; }
-    .post-content img { max-width: 100%; height: auto; margin: 1rem 0; border: 1px solid var(--border); }
-    .post-content code { background: var(--border); padding: 0.15rem 0.4rem; font-size: 0.9em; }
-    .post-content pre { background: var(--border); padding: 1rem; overflow-x: auto; margin-bottom: 1rem; }
-    .post-content pre code { background: none; padding: 0; }
-    .post-content blockquote { border-left: 2px solid var(--border); padding-left: 1rem; color: var(--dim); margin-bottom: 1rem; }
-    .post-content table { border-collapse: collapse; width: 100%; margin-bottom: 1rem; }
+    .post-content img { max-width: 100%; height: auto; margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 2px; }
+    .post-content code { background: var(--border); padding: 0.15rem 0.4rem; font-size: 0.9em; border-radius: 2px; }
+    .post-content pre { background: var(--border); padding: 1.25rem; overflow-x: auto; margin-bottom: 1.25rem; border-radius: 2px; }
+    .post-content pre code { background: none; padding: 0; border-radius: 0; }
+    .post-content blockquote { border-left: 2px solid var(--border); padding-left: 1.15rem; color: var(--dim); margin-bottom: 1.15rem; }
+    .post-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.15rem; }
     .post-content th, .post-content td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; }
+    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .post-content a { color: var(--text); }
+    .post-content a:hover { text-decoration: none; }
 
     .post-nav {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
     }
     .post-nav a { color: var(--dim); text-decoration: none; }
     .post-nav a:hover { color: var(--text); }
-    .post-nav a span { display: block; font-size: 0.75rem; margin-bottom: 0.2rem; }
+    .post-nav a span { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
     .post-nav a strong { display: block; line-height: 1.4; }
 
     .giscus-wrapper { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-    footer { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--dim); font-size: 0.75rem; }
+    footer { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--dim); font-size: 0.75rem; margin-top: 2rem; }
 
     @media (max-width: 768px) {
       .main { padding: 6rem 1.5rem 2rem; }

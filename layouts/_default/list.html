@@ -6,12 +6,18 @@
   <main>
     <section class="page-title">
       <h1>{{ .Title }}</h1>
-      <p>{{ len $posts }} posts</p>
+      <p>{{ len $posts }} post{{ if ne (len $posts) 1 }}s{{ end }}</p>
     </section>
     <ul class="article-list">
       {{ range $posts }}
       <li>
-        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <article>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ with .Description }}
+          <p class="excerpt">{{ . }}</p>
+          {{ end }}
+        </article>
       </li>
       {{ end }}
     </ul>
