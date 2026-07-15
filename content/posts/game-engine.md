@@ -23,11 +23,13 @@ thats about it for the game loop
 
 if you think about it you can represent it in code terms with
 
-`while(true){`
-`game -> processInput();`
-`game -> update();`
-`game->render();`
-`}`
+```cpp
+while(true){
+    game->processInput();
+    game->update();
+    game->render();
+}
+```
 
 so like we said we have these three things to do while our game is running
 but what do we do when we wanna exit it ?
@@ -40,19 +42,24 @@ First lets talk about initalizing the window before getting into the game loop a
 
 Beginning with the gameloop functions we have ProcessInput, processing input means as the name suggests processing inputs of whatever the end user is trying to do , in some cases it might be to go up or go down or even as we said to exit the game and as we earlier explored we can use the sdl keydown to assign whatver we want to this specific thing but for this all to work , ok so the user clicked something but how do we know if he clicked something ? we use something from sdl called sdl_event and sdl_poll event , for getting the inputs first we create an sdl event , then we use that event and poll for the keydowns happening in that event , below is an example of this in action
 
-`void Game::ProcessInput() {`
-  `SDL_Event event;`
-  `SDL_PollEvent(&event);`
-  `switch (event.type) {`
-  `case SDL_KEYDOWN: {`
-    `if (event.key.keysym.sym == SDLK_ESCAPE) {`
-      `isRunning = false;`
-    `}`
-  `}`
+```cpp
+void Game::ProcessInput() {
+    SDL_Event event;
+    SDL_PollEvent(&event);
+    switch (event.type) {
+    case SDL_KEYDOWN: {
+        if (event.key.keysym.sym == SDLK_ESCAPE) {
+            isRunning = false;
+        }
+    }
+}
+```
 
 Up next we have update function , ok so cool we got the processed input from the user now what should we do ? we move onto update this to our game loop inorder to render this to our screen , updating gets a little bit tricky if we think beyond the naive way of how update works , on paper we just have to get whatever is the value and just update it so our renderer can just go and draw the updated values , to deviate for a moment lets think if we are drawing some projectile onto our screen , and its supposed to move in our screen , the only issue with this is this acts differently in different machines based on the perfomance of our machine , well we dont want that to happen to use right for this we use frame target time and delta time , frame target time is the time taken by a frame to render onto the screen and fps as many of us know is frames per second , so in our update function we use this deltatime to ensure that its fixed or we clip this properly for everyone we can do this in 2 ways either just use a while loop or use something from sdl called sdl delay , the while loop is a very naive way to go about this as we all know while loops are cpu heavy processes and we shouldnt really spam it everywhere unless we really need them we could just use
 
-`while(!SDL_TICKS_PASSED(SDL_GetTicks(), TicksLastFrame + FRAME_TARGET_TIME));`
+```cpp
+while(!SDL_TICKS_PASSED(SDL_GetTicks(), TicksLastFrame + FRAME_TARGET_TIME));
+```
 
 but why do that when we have sdl_delay in our hands so we use that instead
 
